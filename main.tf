@@ -39,7 +39,7 @@ module "ssh-forwarding-sg" {
       to_port     = 22
       protocol    = "tcp"
       description = "SSH access from home IP only"
-      cidr_blocks = var.your_ip_address  # Replace with your actual home IP
+      cidr_blocks = "${var.your_ip_address}/32" # Replace with your actual home IP
     }
   ]
 
