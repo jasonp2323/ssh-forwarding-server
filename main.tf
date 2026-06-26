@@ -59,6 +59,11 @@ resource "aws_instance" "ssh-forwarding-server" {
     #!/bin/bash
     apt-get update -y
 
+    # Harden SSH configuration
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/' /etc/ssh/sshd_config
+    sed -i 's/#X11Forwarding yes/X11Forwarding no/' /etc/ssh/sshd_config
+
     # Enable SSH forwarding
     sed -i 's/#AllowAgentForwarding yes/AllowAgentForwarding yes/' /etc/ssh/sshd_config
     sed -i 's/#AllowTcpForwarding yes/AllowTcpForwarding yes/' /etc/ssh/sshd_config

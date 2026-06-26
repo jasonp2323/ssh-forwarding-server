@@ -10,7 +10,12 @@ variable "ubuntu_image" {
   description = "Ubuntu Image AMI ID"
 }
 
-variable "your_ip_address"  {
+variable "your_ip_address" {
   type        = string
   description = "Your home's IP address"
+
+  validation {
+    condition     = can(regex("^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$", var.your_ip_address))
+    error_message = "Must be a valid IPv4 address (e.g. 1.2.3.4)."
+  }
 }
